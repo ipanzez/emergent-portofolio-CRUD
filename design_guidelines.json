@@ -1,0 +1,97 @@
+{
+  "theme": {
+    "strategy": "Hybrid Contextual Theme. The portfolio utilizes 'Dark Theme Bookends' (Hero and Get In Touch sections are immersive dark mode) to create a cinematic opening and closing, while the core content sections (About, Experience, Projects) and the entire Admin Dashboard run on an ultra-clean, 'Glass/Clean' Light Theme.",
+    "emotional_tone": "Elegant, precise, creative, and strictly professional (Behance top-tier quality)."
+  },
+  "colors": {
+    "dark_bookends": {
+      "background": "#050505",
+      "text": "#FFFFFF",
+      "accent_blue": "#2563EB",
+      "accent_purple": "#9333EA",
+      "gradient_sparkle": "linear-gradient(135deg, #2563EB 0%, #9333EA 100%)",
+      "description": "Deep void black with high-contrast electric blue and purple gradients for hero/footer."
+    },
+    "light_content": {
+      "background": "#F9FAFB",
+      "card_surface": "#FFFFFF",
+      "text_primary": "#111827",
+      "text_secondary": "#4B5563",
+      "border": "#E5E7EB"
+    },
+    "project_accents": {
+      "light_red": "#FFDADC",
+      "primary_red": "#E62129",
+      "dark_red": "#731014",
+      "description": "Used strictly for project-specific highlights, tags, and call-to-actions within the Selected Projects section."
+    }
+  },
+  "typography": {
+    "font_family": "Roboto, sans-serif",
+    "strategy": "Since Roboto is standard, we must use extreme contrast to make it feel premium. Headings MUST be 'font-black' or 'font-bold' with 'tracking-tight'. Body must be 'font-normal' with 'leading-relaxed'.",
+    "hierarchy": {
+      "h1": "text-5xl md:text-6xl font-black tracking-tighter text-white",
+      "h2": "text-3xl md:text-4xl font-bold tracking-tight text-gray-900",
+      "h3": "text-xl md:text-2xl font-bold text-gray-900",
+      "body": "text-base md:text-lg text-gray-600 leading-relaxed",
+      "label": "text-xs font-bold uppercase tracking-[0.2em] text-gray-500"
+    }
+  },
+  "visual_enhancers": {
+    "cards": "bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100",
+    "glass": "backdrop-blur-xl bg-white/70 border border-white/20",
+    "dark_glass": "backdrop-blur-xl bg-black/40 border border-white/10"
+  },
+  "motion": {
+    "page_transition": "Smooth fade and slide up using framer-motion (initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}).",
+    "card_hover": "transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] hover:brightness-105",
+    "scroll_reveal": "Sections should fade in on scroll.",
+    "rule": "Sedikit tapi berkelas (Minimal but classy, not overwhelming)."
+  },
+  "layouts": {
+    "hero": "Full viewport height (min-h-screen). Centered or asymmetric layout on #050505 background. Large 'Hello And Welcome To My PORTOFOLIO.' heading. Include a glowing gradient badge for role, experience range, and a prominent 'Selected Project' CTA.",
+    "about": "Bento-box grid layout (grid-cols-1 md:grid-cols-12 gap-6). Profile photo spans 4 cols, Bio spans 8 cols. Dedicated cards for Hard Skills, Soft Skills, and Tools (Figma/Corel/AE/Blender) with icons.",
+    "experience": "Vertical timeline layout with clear connection lines. Clean typography.",
+    "projects": "Grid layout (grid-cols-1 md:grid-cols-2 gap-8). Project cards must have cover images, category tags (using the red palette), and title.",
+    "project_detail": "Immersive page. Massive cover image, overview section, role/tools grid. Must include a 'Color Palette' section with hex swatches and a 'Typography' section, followed by a screenshot gallery and external links.",
+    "get_in_touch": "Reverts to Dark Theme. Massive typography for contact, static info, CTA mailto, social links, and a 'Download CV' button. Acts as a cinematic bookend.",
+    "admin_dashboard": "Standard SaaS layout. Sidebar navigation (fixed) + main content area. Data tables for CRUD operations. Settings page for CV upload and SEO."
+  },
+  "components_strategy": {
+    "public_site": "Use pure HTML/Tailwind + framer-motion for maximum layout flexibility and creative overlapping.",
+    "admin_site": "Use Shadcn/UI (Tables, Forms, Dialogs, Inputs, Buttons) heavily customized to match the light clean theme."
+  },
+  "image_urls": {
+    "profile_photo": {
+      "url": "https://images.unsplash.com/photo-1681164315669-e351ae412094?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwxfHx1eCUyMGRlc2lnbmVyJTIwcG9ydHJhaXQlMjBwcm9mZXNzaW9uYWx8ZW58MHx8fHwxNzg5MTAwNDcyfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Professional UX Designer portrait with glasses, arms crossed, clean background."
+    },
+    "project_cover_1": {
+      "url": "https://images.unsplash.com/photo-1558655146-6c222b05fce4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1OTN8MHwxfHNlYXJjaHw0fHxtb2JpbGUlMjBhcHAlMjB1aSUyMHByZXNlbnRhdGlvbiUyMG1vY2t1cHxlbnwwfHx8fDE3ODkxMDA0NzZ8MA&ixlib=rb-4.1.0&q=85",
+      "description": "Mobile app UI mockup presentation."
+    },
+    "project_cover_2": {
+      "url": "https://images.unsplash.com/photo-1763718528755-4bca23f82ac3?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHw0fHx3ZWIlMjBkZXNpZ24lMjBzYWFzJTIwZGFzaGJvYXJkJTIwbW9ja3VwfGVufDB8fHx8MTc4OTEwMDQ3Nnww&ixlib=rb-4.1.0&q=85",
+      "description": "Web design SaaS dashboard mockup."
+    }
+  },
+  "libraries": {
+    "icons": "lucide-react for Admin, @phosphor-icons/react for Public site (install via yarn add @phosphor-icons/react).",
+    "animation": "framer-motion for page transitions and hover effects.",
+    "scrolling": "lenis for smooth scrolling on public pages (install via yarn add @studio-freight/react-lenis)."
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the Dark/Light hybrid theme structure.",
+    "Implement the 'Get In Touch' section with the exact same background and vibe as the 'Hero' section.",
+    "Use framer-motion for smooth page and card transitions.",
+    "For the Project Detail page, ensure you build specific UI components for 'Color Palette' (showing circular or square hex swatches) and 'Typography' (showing 'Aa' and font weights).",
+    "Ensure 'Roboto' is set globally in index.css.",
+    "Admin panel must be fully protected by JWT auth (mock if needed but build the UI flow)."
+  ],
+  "universal_guidelines": {
+    "testing": "All interactive and key informational elements MUST include a data-testid attribute in kebab-case, role-based naming.",
+    "spacing": "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "borders": "Never use pure transparent backgrounds on overlays. Use glassmorphism.",
+    "animations": "Every interaction needs micro-animations - hover states, transitions, entrance animations. Static = dead."
+  }
+}
