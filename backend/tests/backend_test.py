@@ -182,6 +182,100 @@ class TestProjectsCRUD:
         assert admin_session.delete(f"{API}/admin/projects/{pid}").status_code == 404
 
 
+# --- Case study fields + Reorder ---
+class TestProjectCaseStudyFields:
+    def test_create_update_with_case_study_fields(self, admin_session):
+        payload = {
+            "title": "TEST Case Study Proj", "slug": "", "category": "Web", "year": "2025",
+            "overview": "ov", "role": "role", "tools": [], "color_palette": [],
+            "typography": [], "gallery": [], "featured": False, "order": 999,
+            "problem": "The problem statement",
+            "goal": "The goal statement",
+            "process": [
+                {"title": "Discover", "description": "d1"},
+                {"title": "Design", "description": "d2"},
+            ],
+            "kpis": [
+                {"value": "80%", "label": "increase"},
+                {"value": "2x", "label": "speed"},
+            ],
+        }
+        r = admin_session.post(f"{API}/admin/projects", json=payload)
+        assert r.status_code == 201, r.text
+        data = r.json()
+        pid = data["id"]
+        try:
+            assert data["problem"] == "The problem statement"
+            assert data["goal"] == "The goal statement"
+            assert len(data["process"]) == 2
+            assert data["process"][0]["title"] == "Discover"
+            assert len(data["kpis"]) == 2
+            assert data["kpis"][1]["value"] == "2x"
+
+            # update: expand
+            payload["process"].append({"title": "Deliver", "description": "d3"})
+            payload["kpis"].append({"value": "100", "label": "users"})
+            r = admin_session.put(f"{API}/admin/projects/{pid}", json=payload)
+            assert r.status_code == 200
+            up = r.json()
+            assert len(up["process"]) == 3
+            assert up["process"][2]["title"] == "Deliver"
+            assert len(up["kpis"]) == 3
+
+            # public GET returns fields
+            slug = up["slug"]
+            r = requests.get(f"{API}/public/projects/{slug}")
+            assert r.status_code == 200
+            pub = r.json()
+            assert pub["problem"] == "The problem statement"
+            assert len(pub["process"]) == 3
+            assert len(pub["kpis"]) == 3
+        finally:
+            admin_session.delete(f"{API}/admin/projects/{pid}")
+
+    def test_toko_rasa_has_4_process_and_4_kpis(self):
+        r = requests.get(f"{API}/public/projects/toko-rasa-ecommerce")
+        assert r.status_code == 200
+        d = r.json()
+        assert len(d.get("process", [])) == 4, f"process={d.get('process')}"
+        assert len(d.get("kpis", [])) == 4, f"kpis={d.get('kpis')}"
+
+
+class TestReorder:
+    def test_projects_reorder(self, admin_session):
+        items = admin_session.get(f"{API}/admin/projects").json()
+        assert len(items) >= 2
+        ids = [p["id"] for p in items]
+        # swap first two
+        new_ids = [ids[1], ids[0]] + ids[2:]
+        r = admin_session.put(f"{API}/admin/projects/reorder", json={"ids": new_ids})
+        assert r.status_code == 200
+        after = admin_session.get(f"{API}/admin/projects").json()
+        after_ids = [p["id"] for p in after]
+        assert after_ids[:2] == new_ids[:2]
+        # restore
+        r = admin_session.put(f"{API}/admin/projects/reorder", json={"ids": ids})
+        assert r.status_code == 200
+        restored = [p["id"] for p in admin_session.get(f"{API}/admin/projects").json()]
+        assert restored == ids
+
+    def test_skills_reorder(self, admin_session):
+        items = admin_session.get(f"{API}/admin/skills").json()
+        assert len(items) >= 2
+        ids = [s["id"] for s in items]
+        new_ids = [ids[1], ids[0]] + ids[2:]
+        r = admin_session.put(f"{API}/admin/skills/reorder", json={"ids": new_ids})
+        assert r.status_code == 200
+        after = [s["id"] for s in admin_session.get(f"{API}/admin/skills").json()]
+        assert after[:2] == new_ids[:2]
+        # also public endpoint reflects new order
+        pub = requests.get(f"{API}/public/portfolio").json()["skills"]
+        pub_ids = [s["id"] for s in pub]
+        assert pub_ids[:2] == new_ids[:2]
+        # restore
+        admin_session.put(f"{API}/admin/skills/reorder", json={"ids": ids})
+
+
 # --- Profile ---
 class TestProfile:
     def test_get_profile(self, admin_session):

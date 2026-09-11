@@ -1,4 +1,4 @@
-from models import Experience, Profile, Project, Skill, SocialLink, SeoMeta, Tool, TypographyItem
+from models import Experience, Kpi, ProcessStep, Profile, Project, Skill, SocialLink, SeoMeta, Tool, TypographyItem
 from repository import experiences_repo, profile_repo, projects_repo, skills_repo, tools_repo
 
 U = "https://images.unsplash.com/"
@@ -50,6 +50,15 @@ PROJECTS = [
         title="Toko Rasa — E-Commerce App", slug="toko-rasa-ecommerce", category="E-Commerce", year="2024",
         cover_url=f"{U}photo-1558655146-6c222b05fce4?w=1400&q=80",
         overview="Redesign aplikasi belanja UMKM dengan fokus pada discovery produk yang cepat, checkout ringkas, dan rasa percaya melalui ulasan yang transparan.",
+        problem="Pengguna kesulitan menemukan produk (rata-rata 48 detik) dan 61% meninggalkan keranjang di langkah pembayaran karena form terlalu panjang dan tidak ada indikator progres.",
+        goal="Memangkas waktu discovery di bawah 20 detik, menyederhanakan checkout menjadi maksimal 3 langkah, dan meningkatkan kepercayaan lewat ulasan terverifikasi.",
+        process=[
+            ProcessStep(title="Research", description="8 wawancara pengguna, analisis funnel, dan competitive audit 5 aplikasi belanja lokal."),
+            ProcessStep(title="Define", description="Menyusun persona, journey map, dan memetakan 3 pain point prioritas."),
+            ProcessStep(title="Design", description="Wireframe lo-fi → hi-fi di Figma, membangun design system komponen."),
+            ProcessStep(title="Test & Iterate", description="Usability test 2 putaran dengan 10 partisipan via Maze, iterasi checkout dan filter."),
+        ],
+        kpis=[Kpi(value="+31%", label="Checkout completion"), Kpi(value="19s", label="Waktu menemukan produk"), Kpi(value="4.7/5", label="Skor kepuasan"), Kpi(value="-38%", label="Cart abandonment")],
         role="Lead Product Designer — research, UX flow, UI, prototyping, handoff.",
         tools=["Figma", "Maze", "After Effects"],
         color_palette=["#FFDADC", "#E62129", "#731014", "#111827", "#F9FAFB"],

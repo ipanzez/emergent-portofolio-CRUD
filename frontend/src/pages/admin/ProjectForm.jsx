@@ -11,7 +11,7 @@ import { Field, PageHeader, Panel } from "@/components/admin/Shared";
 import { ImageUpload, uploadImage } from "@/components/admin/ImageUpload";
 
 const EMPTY = {
-  title: "", slug: "", category: "", year: "", cover_url: "", overview: "", role: "", tools: [],
+  title: "", slug: "", category: "", year: "", cover_url: "", overview: "", problem: "", goal: "", process: [], kpis: [], role: "", tools: [],
   color_palette: ["#FFDADC", "#E62129", "#731014"], typography: [{ name: "Roboto", usage: "" }], gallery: [], link: "", outcome: "", featured: false, order: 0,
 };
 
@@ -45,7 +45,13 @@ export default function ProjectForm() {
   const save = async (e) => {
     e.preventDefault();
     setSaving(true);
-    const payload = { ...form, tools: toolsText.split(",").map((t) => t.trim()).filter(Boolean), typography: form.typography.filter((t) => t.name.trim()) };
+    const payload = {
+      ...form,
+      tools: toolsText.split(",").map((t) => t.trim()).filter(Boolean),
+      typography: form.typography.filter((t) => t.name.trim()),
+      process: form.process.filter((s) => s.title.trim()),
+      kpis: form.kpis.filter((k) => k.value.trim() && k.label.trim()),
+    };
     try {
       if (id) await api.put(`/admin/projects/${id}`, payload);
       else await api.post("/admin/projects", payload);
@@ -85,6 +91,35 @@ export default function ProjectForm() {
               <Field id="project-tools" label="Tools" hint="Pisahkan dengan koma" value={toolsText} onChange={(e) => setToolsText(e.target.value)} />
               <Field id="project-link" label="External link" type="url" placeholder="https://" value={form.link} onChange={set("link")} />
               <Field id="project-outcome" label="Outcome" textarea className="sm:col-span-2" value={form.outcome} onChange={set("outcome")} />
+            </div>
+          </Panel>
+
+          <Panel title="Case study">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <Field id="project-problem" label="Problem" textarea placeholder="Masalah apa yang dihadapi pengguna/bisnis?" value={form.problem} onChange={set("problem")} />
+              <Field id="project-goal" label="Goal" textarea placeholder="Target yang ingin dicapai" value={form.goal} onChange={set("goal")} />
+            </div>
+            <p className="mb-2 mt-6 text-xs font-bold uppercase tracking-wider text-gray-500">Process</p>
+            <div className="space-y-3" data-testid="process-editor">
+              {form.process.map((s, i) => (
+                <div key={i} className="grid gap-2 sm:grid-cols-[1fr_2fr_auto]">
+                  <input data-testid={`process-title-${i}`} placeholder={`Step ${i + 1} (Research, Define…)`} value={s.title} onChange={(e) => setList("process", i, { ...s, title: e.target.value })} className="h-10 rounded-xl border border-gray-200 px-3 text-sm" />
+                  <input data-testid={`process-desc-${i}`} placeholder="Apa yang dilakukan" value={s.description} onChange={(e) => setList("process", i, { ...s, description: e.target.value })} className="h-10 rounded-xl border border-gray-200 px-3 text-sm" />
+                  <button type="button" onClick={() => removeAt("process", i)} className="grid h-10 w-10 place-items-center rounded-xl text-gray-400 hover:bg-rose-soft hover:text-rose"><X size={14} /></button>
+                </div>
+              ))}
+              <Button type="button" variant="outline" data-testid="process-add-btn" onClick={() => push("process", { title: "", description: "" })} className="rounded-xl"><Plus size={14} className="mr-1" /> Add step</Button>
+            </div>
+            <p className="mb-2 mt-6 text-xs font-bold uppercase tracking-wider text-gray-500">KPI / Impact</p>
+            <div className="space-y-3" data-testid="kpi-editor">
+              {form.kpis.map((k, i) => (
+                <div key={i} className="grid gap-2 sm:grid-cols-[1fr_2fr_auto]">
+                  <input data-testid={`kpi-value-${i}`} placeholder="+31%" value={k.value} onChange={(e) => setList("kpis", i, { ...k, value: e.target.value })} className="h-10 rounded-xl border border-gray-200 px-3 font-mono text-sm" />
+                  <input data-testid={`kpi-label-${i}`} placeholder="Checkout completion" value={k.label} onChange={(e) => setList("kpis", i, { ...k, label: e.target.value })} className="h-10 rounded-xl border border-gray-200 px-3 text-sm" />
+                  <button type="button" onClick={() => removeAt("kpis", i)} className="grid h-10 w-10 place-items-center rounded-xl text-gray-400 hover:bg-rose-soft hover:text-rose"><X size={14} /></button>
+                </div>
+              ))}
+              <Button type="button" variant="outline" data-testid="kpi-add-btn" onClick={() => push("kpis", { value: "", label: "" })} className="rounded-xl"><Plus size={14} className="mr-1" /> Add KPI</Button>
             </div>
           </Panel>
 

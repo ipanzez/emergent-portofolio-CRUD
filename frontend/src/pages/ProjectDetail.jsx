@@ -8,7 +8,7 @@ import { Navbar } from "@/components/public/Navbar";
 import { PageTransition, Reveal } from "@/components/public/Motion";
 import { ProjectCard } from "@/components/public/Projects";
 import { PublicLoader } from "@/components/public/PublicLoader";
-import { ColorPalette, TypographyShowcase } from "@/components/public/ProjectSpecs";
+import { CaseStudy, ColorPalette, TypographyShowcase } from "@/components/public/ProjectSpecs";
 
 const Meta = ({ label, children, testId }) => (
   <div data-testid={testId}>
@@ -89,6 +89,8 @@ export default function ProjectDetail() {
             )}
           </Reveal>
         </div>
+
+        <CaseStudy project={project} />
 
         {project.color_palette?.length > 0 && <ColorPalette colors={project.color_palette} />}
         {project.typography?.length > 0 && <TypographyShowcase items={project.typography} />}

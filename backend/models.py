@@ -77,6 +77,16 @@ class TypographyItem(BaseModel):
     usage: str = ""
 
 
+class ProcessStep(BaseModel):
+    title: str
+    description: str = ""
+
+
+class Kpi(BaseModel):
+    value: str
+    label: str
+
+
 class Project(BaseDocument):
     title: str
     slug: str = ""
@@ -84,6 +94,10 @@ class Project(BaseDocument):
     year: str = ""
     cover_url: str = ""
     overview: str = ""
+    problem: str = ""
+    goal: str = ""
+    process: List[ProcessStep] = []
+    kpis: List[Kpi] = []
     role: str = ""
     tools: List[str] = []
     color_palette: List[str] = []

@@ -1,0 +1,33 @@
+{
+  "summary": "Iteration 2 validated new case-study fields (problem/goal/process/kpis) on projects, drag-and-drop reorder for Skills/Projects, redesigned About photo card, and mobile 390px layout. Backend: 24/24 pytest passing (added 4 new tests for case-study fields + reorder). Frontend: all requested drag/create/persist/delete/toggle flows verified end-to-end. Test data cleaned up.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "SkillsTools & ProjectsAdmin", "issue": "React 'Maximum update depth exceeded' warning fires repeatedly on admin pages that use framer-motion Reorder.Group. Likely caused by useEffect syncing items from data on every re-render (data.filter returns new array each time) combined with Reorder.Group's onReorder callback. Functionality still works but console is spammed and performance may degrade with many items.", "selector": "[data-testid=\"hard-skills-list\"], [data-testid=\"projects-list\"]", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Admin project list", "issues": ["Empty string passed to <img src> when a project has no cover_url — browser warning 'empty string passed to src'. Use null/undefined or a fallback placeholder in assetUrl()."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/backend_test.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "Fix 'Maximum update depth exceeded' loop in /app/frontend/src/pages/admin/SkillsTools.jsx and ProjectsAdmin.jsx. Suggested: guard the useEffect by comparing ids (e.g., only setItems when data ids differ from current items ids) or memoize with useMemo on data reference/length.",
+    "Handle empty cover_url in project row image (avoid empty src attribute)."
+  ],
+  "critical_code_review_comments": [
+    "SkillsTools.jsx line 42-46: useEffect deps=[data] with eslint-disable but filter is a prop that changes every render. New array from data.filter() triggers setItems every effect run — combined with framer-motion Reorder.Group onReorder causing infinite render loop warning.",
+    "ProjectsAdmin.jsx: same pattern (useEffect ->  setItems(data) each time data reference changes). React Query returns stable references normally, but combined with Reorder animation frames it still triggers 'Maximum update depth exceeded'.",
+    "ProjectForm.jsx save(): payload filters process by title.trim() but not empty description — good. Consider trimming values before submit to avoid whitespace-only entries.",
+    "routes_content.py register_crud: reorder endpoint accepts any ids list without validating that all ids belong to this collection. Malicious/incorrect payload could reorder unrelated records — low risk since admin-only.",
+    "assetUrl handling: passing empty string to <img src> produces browser warning + extra network request. Wrap with conditional render or default placeholder."
+  ],
+  "updated_files": ["/app/backend/tests/backend_test.py"],
+  "success_rate": {"backend": "100% (24/24)", "frontend": "100% of tested flows"},
+  "test_credentials": "admin / Admin@12345 (from /app/memory/test_credentials.md). Not changed.",
+  "seed_data_creation": "None persisted — one TEST project created via UI and deleted, TEST_TEMP_SKILL added and deleted, drag reorders restored, featured toggle restored.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend tests: /app/backend/tests/backend_test.py (24 tests). New classes: TestProjectCaseStudyFields (create/update with problem/goal/process/kpis + verify toko-rasa has 4/4), TestReorder (projects+skills reorder with persistence + public API mirror). Frontend drag uses framer-motion Reorder.Group with dragListener=false and grip handles data-testid={resource}-drag-{i}. Playwright drag pattern: get bounding box of drag handle, mouse.move -> mouse.down -> multiple mouse.move steps with delays -> mouse.up. Note: dy calculation affects landing position: to swap 0<->1 use dy = item1.y + item1.height*0.6 - item0.y (that worked reliably on projects). Case study renders inside [data-testid=project-case-study] with children [data-testid=project-problem], [data-testid=project-goal], [data-testid=project-process] (ol), [data-testid=project-kpis]. Public detail sections order: case-study is before project-palette on toko-rasa (verified caseTop=1384 < palTop=2353). Mobile 390px shows [data-testid=about-photo] with name overlay + [data-testid=about-years-badge] and no horizontal overflow (scrollWidth==clientWidth==390).",
+  "rca of the issue": "N/A — no functional bugs. React 'Maximum update depth' warning RCA: useEffect(() => { setItems(data.filter(filter)) }, [data]) re-runs on every parent re-render because filter prop (arrow function) makes ListEditor receive new prop reference each render, causing re-render, and Reorder.Group onReorder during animation frames triggers additional setItems calls. Mitigation: (a) memoize filter callback in parent SkillsTools with useCallback, (b) inside effect diff items before calling setItems, or (c) use JSON.stringify(data map ids) as effect dep."
+}

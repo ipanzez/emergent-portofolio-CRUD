@@ -22,9 +22,12 @@ Website portfolio pribadi bergaya Behance untuk UI/UX Designer: halaman publik e
 - [x] Local image/PDF upload via abstract storage, served at `/api/uploads`
 - [x] Framer Motion reveals, page transitions, hover lift/filter; responsive
 - [x] Tested: 20/20 backend pytest, all frontend flows (iteration_1)
+- [x] Drag & drop reorder (framer-motion Reorder) untuk skills/tools & projects admin
+- [x] Case study lengkap: Problem, Goal, Process steps, KPI/Impact cards (model → admin form → detail page)
+- [x] Redesign About photo card (overlay nama/role, badge lokasi, floating badge tahun pengalaman); QA mobile 390px tanpa overflow
+- [x] Tested iteration_2: 24/24 backend, semua alur drag/case-study lolos; fix loop update-depth di Reorder
 
 ## Backlog
-- P1: Drag-and-drop reorder for projects; project "Problem / Goal / KPI" rich case-study fields
 - P1: Server-side OG meta for social crawlers (currently client-side only)
 - P2: Object storage adapter (S3/Emergent) implementing StorageService
 - P2: MariaDB/SQL repository implementation

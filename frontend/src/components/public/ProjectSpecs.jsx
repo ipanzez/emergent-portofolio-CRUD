@@ -34,6 +34,69 @@ const Swatch = ({ hex, index }) => {
   );
 };
 
+export const CaseStudy = ({ project }) => {
+  const hasBrief = project.problem || project.goal;
+  const hasProcess = project.process?.length > 0;
+  const hasKpis = project.kpis?.length > 0;
+  if (!hasBrief && !hasProcess && !hasKpis) return null;
+  return (
+    <section className="mt-24" data-testid="project-case-study">
+      {hasBrief && (
+        <div className="grid gap-6 md:grid-cols-2">
+          {project.problem && (
+            <Reveal data-testid="project-problem" className="card-soft card-hover relative overflow-hidden p-8 md:p-10">
+              <span className="absolute -right-6 -top-8 text-[120px] font-black leading-none text-rose-soft/70 select-none">?</span>
+              <p className="eyebrow text-rose-deep">Problem</p>
+              <p className="relative mt-4 text-base leading-relaxed text-gray-700 md:text-lg">{project.problem}</p>
+            </Reveal>
+          )}
+          {project.goal && (
+            <Reveal delay={0.1} data-testid="project-goal" className="relative overflow-hidden rounded-3xl bg-ink p-8 text-white md:p-10">
+              <div className="absolute -right-10 -top-16 h-48 w-48 rounded-full bg-blue-600/40 blur-[70px]" />
+              <p className="eyebrow text-blue-300">Goal</p>
+              <p className="relative mt-4 text-base leading-relaxed text-white/80 md:text-lg">{project.goal}</p>
+            </Reveal>
+          )}
+        </div>
+      )}
+      {hasProcess && (
+        <div className="mt-20" data-testid="project-process">
+          <Reveal>
+            <p className="eyebrow">Process</p>
+            <h2 className="mt-3 text-2xl font-bold tracking-tight text-gray-900">Cara saya sampai ke solusi.</h2>
+          </Reveal>
+          <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {project.process.map((s, i) => (
+              <Reveal key={s.title + i} delay={i * 0.08} className="card-soft card-hover relative p-6">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-brand-blue to-brand-purple text-sm font-black text-white">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="mt-5 text-lg font-bold text-gray-900">{s.title}</h3>
+                {s.description && <p className="mt-2 text-sm leading-relaxed text-gray-600">{s.description}</p>}
+                {i < project.process.length - 1 && <span className="absolute -right-2 top-1/2 hidden h-px w-4 bg-gray-200 lg:block" />}
+              </Reveal>
+            ))}
+          </ol>
+        </div>
+      )}
+      {hasKpis && (
+        <div className="mt-20" data-testid="project-kpis">
+          <Reveal>
+            <p className="eyebrow">Impact</p>
+            <h2 className="mt-3 text-2xl font-bold tracking-tight text-gray-900">Angka yang berbicara.</h2>
+          </Reveal>
+          <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {project.kpis.map((k, i) => (
+              <Reveal key={k.label + i} delay={i * 0.08} className="card-soft card-hover border-t-4 border-t-rose p-6">
+                <p className="text-3xl font-black tracking-tight text-gray-900 sm:text-4xl">{k.value}</p>
+                <p className="mt-2 text-xs font-bold uppercase tracking-[0.15em] text-gray-500">{k.label}</p>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+  );
+};
+
 export const ColorPalette = ({ colors }) => (
   <section className="mt-24" data-testid="project-palette">
     <Reveal>
