@@ -27,9 +27,9 @@ export const PageTransition = ({ children }) => (
 );
 
 export const SectionHeading = ({ eyebrow, title, description, light = false }) => (
-  <Reveal className="mb-12 max-w-2xl md:mb-16">
+  <Reveal className="mb-10 max-w-2xl md:mb-16">
     <p className={`eyebrow ${light ? "text-white/50" : ""}`}>{eyebrow}</p>
-    <h2 className={`mt-3 text-3xl font-bold tracking-tight md:text-4xl ${light ? "text-white" : "text-gray-900"}`}>{title}</h2>
+    <h2 className={`mt-3 text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl ${light ? "text-white" : "text-gray-900"}`}>{title}</h2>
     {description && <p className={`mt-4 text-base leading-relaxed md:text-lg ${light ? "text-white/60" : "text-gray-600"}`}>{description}</p>}
   </Reveal>
 );

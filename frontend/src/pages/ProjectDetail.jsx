@@ -6,9 +6,8 @@ import { assetUrl } from "@/lib/api";
 import { Seo } from "@/components/Seo";
 import { Navbar } from "@/components/public/Navbar";
 import { PageTransition, Reveal } from "@/components/public/Motion";
-import { ProjectCard } from "@/components/public/Projects";
 import { PublicLoader } from "@/components/public/PublicLoader";
-import { CaseStudy, ColorPalette, TypographyShowcase } from "@/components/public/ProjectSpecs";
+import { CaseStudy, ColorPalette, GallerySlider, TypographyShowcase } from "@/components/public/ProjectSpecs";
 
 const Meta = ({ label, children, testId }) => (
   <div data-testid={testId}>
@@ -38,7 +37,6 @@ export default function ProjectDetail() {
   }
 
   const profile = portfolio?.profile;
-  const related = (portfolio?.projects || []).filter((p) => p.slug !== project.slug).slice(0, 3);
 
   return (
     <PageTransition>
@@ -52,7 +50,7 @@ export default function ProjectDetail() {
           <div className="mt-8 flex flex-wrap items-end justify-between gap-6">
             <div className="max-w-3xl">
               <span className="rounded-full bg-rose-soft px-3 py-1 text-xs font-bold uppercase tracking-wider text-rose-deep">{project.category}</span>
-              <h1 data-testid="project-title" className="mt-5 text-4xl font-black tracking-tighter text-gray-900 sm:text-5xl lg:text-6xl">{project.title}</h1>
+              <h1 data-testid="project-title" className="mt-5 break-words text-3xl font-black tracking-tighter text-gray-900 sm:text-5xl lg:text-6xl">{project.title}</h1>
             </div>
             {project.link && (
               <a data-testid="project-external-link" href={project.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-rose px-6 py-3 text-sm font-bold text-white transition-[transform,background-color] duration-300 hover:-translate-y-0.5 hover:bg-rose-deep">
@@ -95,32 +93,7 @@ export default function ProjectDetail() {
         {project.color_palette?.length > 0 && <ColorPalette colors={project.color_palette} />}
         {project.typography?.length > 0 && <TypographyShowcase items={project.typography} />}
 
-        {project.gallery?.length > 0 && (
-          <section className="mt-24" data-testid="project-gallery">
-            <Reveal><p className="eyebrow">Gallery</p></Reveal>
-            <div className="mt-6 grid gap-6 md:grid-cols-2">
-              {project.gallery.map((g, i) => (
-                <Reveal key={g + i} delay={(i % 2) * 0.1} className={`card-soft overflow-hidden ${i % 3 === 0 ? "md:col-span-2" : ""}`}>
-                  <img src={assetUrl(g)} alt={`${project.title} screenshot ${i + 1}`} loading="lazy" className="w-full object-cover transition-transform duration-700 hover:scale-[1.02]" />
-                </Reveal>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {related.length > 0 && (
-          <section className="mt-28" data-testid="related-projects">
-            <Reveal className="flex items-end justify-between">
-              <div>
-                <p className="eyebrow">More Work</p>
-                <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900">Proyek lainnya</h2>
-              </div>
-            </Reveal>
-            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {related.map((p, i) => <ProjectCard key={p.id} project={p} compact index={i} />)}
-            </div>
-          </section>
-        )}
+        {project.gallery?.length > 0 && <GallerySlider images={project.gallery} title={project.title} />}
       </article>
     </PageTransition>
   );

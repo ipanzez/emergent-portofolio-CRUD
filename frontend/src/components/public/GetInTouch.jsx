@@ -6,10 +6,10 @@ import { assetUrl } from "@/lib/api";
 export const GetInTouch = ({ profile }) => (
   <section id="contact" data-testid="contact-section" className="relative overflow-hidden text-white">
     <DarkBackdrop />
-    <div className="relative mx-auto max-w-7xl px-6 pb-12 pt-28 lg:px-10 lg:pt-40">
+    <div className="relative mx-auto max-w-7xl px-6 pb-10 pt-20 lg:px-10 lg:pt-40">
       <Reveal>
         <p className="eyebrow text-white/50">Get In Touch</p>
-        <h2 className="mt-4 max-w-4xl text-4xl font-black leading-[0.95] tracking-tighter sm:text-5xl lg:text-7xl">
+        <h2 className="mt-4 max-w-4xl text-3xl font-black leading-[0.95] tracking-tighter sm:text-5xl lg:text-7xl">
           Let&apos;s create something <span className="gradient-text inline-block">remarkable</span> together.
         </h2>
       </Reveal>
@@ -18,9 +18,9 @@ export const GetInTouch = ({ profile }) => (
           <a
             data-testid="contact-email-cta"
             href={`mailto:${profile.email}`}
-            className="group inline-flex flex-wrap items-center gap-3 text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl"
+            className="group inline-flex max-w-full flex-wrap items-center gap-3 text-xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl"
           >
-            <span className="border-b border-white/20 pb-1 transition-colors group-hover:border-blue-400">{profile.email}</span>
+            <span className="break-all border-b border-white/20 pb-1 transition-colors group-hover:border-blue-400">{profile.email}</span>
             <ArrowUpRight className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
           </a>
           <div className="mt-10 flex flex-wrap gap-3">

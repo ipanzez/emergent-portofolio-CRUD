@@ -1,7 +1,6 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { Reveal, SectionHeading } from "./Motion";
-import { Sparkle } from "./DarkBackdrop";
-import { assetUrl, experienceLabel } from "@/lib/api";
+import { assetUrl } from "@/lib/api";
 
 const Chip = ({ children, tone = "gray" }) => {
   const tones = {
@@ -15,14 +14,13 @@ const Chip = ({ children, tone = "gray" }) => {
 export const About = ({ profile, skills, tools }) => {
   const hard = skills.filter((s) => s.type === "hard");
   const soft = skills.filter((s) => s.type === "soft");
-  const years = experienceLabel(profile.experience_start, profile.experience_end).years.split(" ")[0];
 
   return (
-    <section id="about" data-testid="about-section" className="mx-auto max-w-7xl px-6 py-28 lg:px-10 lg:py-36">
+    <section id="about" data-testid="about-section" className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-36">
       <SectionHeading eyebrow="About Me" title="Desain yang dimulai dari empati, diakhiri dengan kejelasan." />
       <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
         <Reveal className="md:col-span-4">
-          <div className="group relative mb-8 mr-4 sm:mr-6">
+          <div className="group relative">
             <div className="absolute -inset-4 -z-10 rounded-[2.5rem] bg-gradient-to-br from-blue-500/25 via-purple-500/10 to-rose-soft blur-2xl transition-opacity duration-500 group-hover:opacity-100 opacity-70" />
             <div className="absolute -left-3 -top-3 -z-10 h-full w-full rounded-[2rem] border border-dashed border-gray-300 transition-transform duration-500 group-hover:-translate-x-1 group-hover:-translate-y-1" />
             <div className="card-soft relative overflow-hidden rounded-[2rem] transition-[transform,box-shadow] duration-500 group-hover:-translate-y-1 group-hover:shadow-lift">
@@ -43,13 +41,6 @@ export const About = ({ profile, skills, tools }) => {
                   <MapPin size={12} className="text-brand-blue" /> {profile.location}
                 </span>
               )}
-            </div>
-            <div data-testid="about-years-badge" className="absolute -bottom-6 -right-4 flex items-center gap-3 rounded-2xl bg-ink px-5 py-3.5 text-white shadow-lift sm:-right-6">
-              <Sparkle size={14} className="text-blue-300" />
-              <div>
-                <p className="text-2xl font-black leading-none tracking-tight">{years}</p>
-                <p className="mt-1 text-[10px] uppercase tracking-[0.2em] text-white/60">Years exp</p>
-              </div>
             </div>
           </div>
         </Reveal>
@@ -97,13 +88,13 @@ export const About = ({ profile, skills, tools }) => {
             {tools.map((t) => (
               <li key={t.id} className="flex items-center gap-3 rounded-2xl bg-gray-50 px-3.5 py-3 text-sm font-medium text-gray-800">
                 {t.icon ? (
-                  <img src={assetUrl(t.icon)} alt="" className="h-6 w-6 rounded-md object-contain" />
+                  <img src={assetUrl(t.icon)} alt="" className="h-8 w-8 shrink-0 rounded-lg object-contain" />
                 ) : (
-                  <span className="grid h-6 w-6 place-items-center rounded-md bg-gradient-to-br from-brand-blue to-brand-purple text-[10px] font-black text-white">
+                  <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-gradient-to-br from-brand-blue to-brand-purple text-xs font-black text-white">
                     {t.name[0]}
                   </span>
                 )}
-                {t.name}
+                <span className="truncate">{t.name}</span>
               </li>
             ))}
           </ul>

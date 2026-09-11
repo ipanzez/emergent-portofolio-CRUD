@@ -26,6 +26,7 @@ Website portfolio pribadi bergaya Behance untuk UI/UX Designer: halaman publik e
 - [x] Case study lengkap: Problem, Goal, Process steps, KPI/Impact cards (model → admin form → detail page)
 - [x] Redesign About photo card (overlay nama/role, badge lokasi, floating badge tahun pengalaman); QA mobile 390px tanpa overflow
 - [x] Tested iteration_2: 24/24 backend, semua alur drag/case-study lolos; fix loop update-depth di Reorder
+- [x] Revisi UI (iter 3): hero lebih ringkas di desktop, badge tahun di foto dihapus, ikon tools seragam 32px, related projects dihapus dari detail, tipografi mobile diperkecil + overflow-x hidden, galeri project jadi slider (embla) dengan prev/next/dots
 
 ## Backlog
 - P1: Server-side OG meta for social crawlers (currently client-side only)

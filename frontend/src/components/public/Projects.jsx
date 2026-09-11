@@ -41,14 +41,14 @@ export const Projects = ({ projects }) => {
   const others = projects.filter((p) => !p.featured);
   return (
     <>
-      <section id="projects" data-testid="projects-section" className="mx-auto max-w-7xl px-6 py-28 lg:px-10 lg:py-36">
+      <section id="projects" data-testid="projects-section" className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-36">
         <SectionHeading eyebrow="Selected Projects" title="Karya pilihan yang paling saya banggakan." description="Studi kasus ringkas: konteks, peran, palet warna, dan hasil." />
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {featured.map((p, i) => <ProjectCard key={p.id} project={p} index={i} />)}
         </div>
       </section>
       {others.length > 0 && (
-        <section id="other-projects" data-testid="other-projects-section" className="bg-white py-28 lg:py-32">
+        <section id="other-projects" data-testid="other-projects-section" className="bg-white py-20 lg:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-10">
             <SectionHeading eyebrow="Other Projects" title="Eksplorasi & proyek lainnya." />
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

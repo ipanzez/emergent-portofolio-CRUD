@@ -32,6 +32,10 @@
   html {
     scroll-behavior: smooth;
   }
+  html,
+  body {
+    overflow-x: hidden;
+  }
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }

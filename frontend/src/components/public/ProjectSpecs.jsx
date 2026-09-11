@@ -1,6 +1,55 @@
-import { useState } from "react";
-import { Check, Copy } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, Check, Copy } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { assetUrl } from "@/lib/api";
 import { Reveal } from "./Motion";
+
+export const GallerySlider = ({ images, title }) => {
+  const [api, setApi] = useState(null);
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+    const onSelect = () => setCurrent(api.selectedScrollSnap());
+    onSelect();
+    api.on("select", onSelect);
+    return () => api.off("select", onSelect);
+  }, [api]);
+
+  return (
+    <section className="mt-24" data-testid="project-gallery">
+      <Reveal className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow">Gallery</p>
+          <h2 className="mt-3 text-2xl font-bold tracking-tight text-gray-900">Geser untuk melihat layar.</h2>
+        </div>
+        <div className="flex items-center gap-3">
+          <span data-testid="gallery-counter" className="font-mono text-sm text-gray-500">{String(current + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}</span>
+          <button type="button" data-testid="gallery-prev-btn" onClick={() => api?.scrollPrev()} aria-label="Previous" className="grid h-10 w-10 place-items-center rounded-full border border-gray-200 text-gray-700 transition-[background-color,color] hover:bg-ink hover:text-white"><ArrowLeft size={16} /></button>
+          <button type="button" data-testid="gallery-next-btn" onClick={() => api?.scrollNext()} aria-label="Next" className="grid h-10 w-10 place-items-center rounded-full border border-gray-200 text-gray-700 transition-[background-color,color] hover:bg-ink hover:text-white"><ArrowRight size={16} /></button>
+        </div>
+      </Reveal>
+      <Reveal delay={0.1} className="mt-8">
+        <Carousel setApi={setApi} opts={{ loop: images.length > 1, align: "start" }} className="w-full">
+          <CarouselContent className="-ml-4">
+            {images.map((g, i) => (
+              <CarouselItem key={g + i} className="basis-[88%] pl-4 md:basis-[70%]">
+                <div className={`card-soft overflow-hidden transition-[opacity,transform] duration-500 ${i === current ? "opacity-100" : "opacity-60 md:scale-[0.97]"}`}>
+                  <img src={assetUrl(g)} alt={`${title} screenshot ${i + 1}`} loading="lazy" draggable={false} className="aspect-[16/10] w-full select-none object-cover" />
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+        <div className="mt-6 flex justify-center gap-2">
+          {images.map((_, i) => (
+            <button key={i} type="button" data-testid={`gallery-dot-${i}`} aria-label={`Go to slide ${i + 1}`} onClick={() => api?.scrollTo(i)} className={`h-1.5 rounded-full transition-[width,background-color] duration-300 ${i === current ? "w-8 bg-rose" : "w-2 bg-gray-300 hover:bg-gray-400"}`} />
+          ))}
+        </div>
+      </Reveal>
+    </section>
+  );
+};
 
 const isLight = (hex) => {
   const h = hex.replace("#", "");

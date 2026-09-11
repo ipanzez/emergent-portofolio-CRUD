@@ -14,9 +14,9 @@ export const Hero = ({ profile }) => {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section data-testid="hero-section" className="relative flex min-h-screen items-center overflow-hidden text-white">
+    <section data-testid="hero-section" className="relative flex min-h-[100svh] items-center overflow-hidden text-white lg:min-h-0">
       <DarkBackdrop />
-      <div className="relative mx-auto w-full max-w-7xl px-6 pb-24 pt-32 lg:px-10">
+      <div className="relative mx-auto w-full max-w-7xl px-6 pb-20 pt-28 lg:px-10 lg:pb-16 lg:pt-32">
         <motion.div {...item(0)} className="flex flex-wrap items-center gap-3">
           <span data-testid="hero-role-badge" className="dark-glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-sm text-white/85">
             <Sparkle size={12} className="text-blue-300" />
@@ -28,7 +28,7 @@ export const Hero = ({ profile }) => {
           </span>
         </motion.div>
 
-        <motion.h1 {...item(0.12)} data-testid="hero-title" className="mt-10 max-w-4xl text-5xl font-black leading-[0.95] tracking-tighter sm:text-6xl lg:text-7xl">
+        <motion.h1 {...item(0.12)} data-testid="hero-title" className="mt-8 max-w-4xl break-words text-[2.6rem] font-black leading-[0.95] tracking-tighter sm:text-6xl lg:mt-10 lg:text-7xl">
           {profile.hero_greeting}
           <br />
           <span className="gradient-text inline-block pb-2">{profile.hero_title}</span>
@@ -60,7 +60,7 @@ export const Hero = ({ profile }) => {
           )}
         </motion.div>
 
-        <motion.div {...item(0.5)} className="mt-24 flex items-center gap-6 text-white/40">
+        <motion.div {...item(0.5)} className="mt-16 flex items-center gap-6 text-white/40 lg:mt-14">
           <button onClick={() => scrollTo("about")} data-testid="hero-scroll-btn" className="grid h-10 w-10 place-items-center rounded-full border border-white/15 transition-colors hover:border-white/40 hover:text-white">
             <ArrowDown size={16} className="animate-bounce" />
           </button>

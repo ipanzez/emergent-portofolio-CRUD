@@ -1,7 +1,7 @@
 import { Reveal, SectionHeading } from "./Motion";
 
 export const Experience = ({ experiences }) => (
-  <section id="experience" data-testid="experience-section" className="bg-white py-28 lg:py-36">
+  <section id="experience" data-testid="experience-section" className="bg-white py-20 lg:py-36">
     <div className="mx-auto max-w-7xl px-6 lg:px-10">
       <div className="grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-4">
