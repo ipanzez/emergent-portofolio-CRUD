@@ -1,0 +1,22 @@
+{
+  "summary": "Iteration 4 frontend-only verification of Behance-reference redesign. All 6 review items PASS on desktop (1920x900) and mobile (360x780, 390x844). Hero is light-themed (backdrop bg=rgb(255,255,255), text rgb(17,24,39)); hero-greeting='/Hello And Welcome To My'; hero-title splits into two lines 'PORTO' and 'FOLIO.'; role badge 'UI/UX Designer'; experience '2021 – Present'. Selected Project button uses 'sm:absolute' class (static on mobile, absolute on sm+); at 360x780 and 390x844 its bbox does NOT intersect the hero-title bbox; click scrolls to #projects (scrollY matches projects offsetTop). About section: about-name-card width == section content width (diff 0.02px), positioned below about-photo, DOM order is [bio, photo, name-card, hard, soft, tools]; photo container border-radius=9999px; name-card shows 'RAKA ADINATA' (via CSS uppercase, DOM 'Raka Adinata'), role, email, phone, location, and CTA is mailto. Hard/Soft/Tools cards render 7/6/6 items. Contact section is light-themed, contains 'Thank You!', 'Let's Create Something Amazing Together!', 'Let's Connect'; contact-email-cta mailto, phone tel:, location present, all 4 social links present with target=_blank. Mobile overflow: scrollWidth==innerWidth at top/middle/bottom for Home and /projects/toko-rasa-ecommerce at both 360 and 390. Typography cards have zero overflowing descendants at 360 and 390. Navbar on light hero at scroll top has dark text (logo rgb(17,24,39), about link rgb(75,85,99)); nav-menu-toggle opens and closes mobile menu. Regression: project-card-toko-rasa-ecommerce opens detail, project-back-link returns to /#projects, admin login (admin/Admin@12345) succeeds, /admin/profile loads with hero-title-input value 'PORTO FOLIO.' (unchanged).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "Public pages still call /api/auth/me producing 401 console noise for unauthenticated visitors (pre-existing, non-blocking)."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped per request)", "frontend": "100%"},
+  "test_credentials": "admin / Admin@12345 (verified working)",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Iteration 4 redesign verified fully. Key measurements: hero backdrop white; title splits 'PORTO'/'FOLIO.'; Selected Project btn class contains 'sm:absolute' so mobile is static and does NOT overlap title (360 btn y=291, title y=136 h=120 -> no intersect; 390 similar). about-name-card width 1199.98 vs section 1200 (diff 0.02px). Contact backdrop rgb(255,255,255). No horizontal overflow at either 360 or 390 on Home or /projects/toko-rasa-ecommerce. Typography cards zero overflowing children at 360/390. Navbar dark text at scroll top. Admin login testids: login-username-input, login-password-input.",
+  "rca of the issue": "N/A — no issues found"
+}

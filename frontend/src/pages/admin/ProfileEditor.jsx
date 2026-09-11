@@ -45,7 +45,7 @@ export default function ProfileEditor() {
           <Panel title="Hero">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field id="hero-greeting" label="Greeting" value={form.hero_greeting} onChange={set("hero_greeting")} />
-              <Field id="hero-title" label="Highlight title" value={form.hero_title} onChange={set("hero_title")} />
+              <Field id="hero-title" label="Highlight title" hint="Spasi memisahkan dua baris, mis. PORTO FOLIO." value={form.hero_title} onChange={set("hero_title")} />
               <Field id="hero-subtitle" label="Subtitle" textarea className="sm:col-span-2" value={form.hero_subtitle} onChange={set("hero_subtitle")} />
               <Field id="experience-start" label="Experience start (year)" type="number" value={form.experience_start} onChange={(e) => set("experience_start")(Number(e.target.value))} />
               <Field id="experience-end" label="Experience end" hint="Tahun atau 'Present'" value={form.experience_end} onChange={set("experience_end")} />

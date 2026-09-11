@@ -166,12 +166,12 @@ export const TypographyShowcase = ({ items }) => (
     </Reveal>
     <div className="mt-8 grid gap-6 md:grid-cols-2">
       {items.map((t, i) => (
-        <Reveal key={t.name + i} delay={i * 0.08} className="card-soft card-hover flex items-center gap-8 p-8">
-          <span className="text-7xl font-black leading-none tracking-tighter text-gray-900" style={{ fontFamily: `'${t.name}', Roboto, sans-serif` }}>Aa</span>
-          <div>
+        <Reveal key={t.name + i} delay={i * 0.08} className="card-soft card-hover flex flex-col items-start gap-5 overflow-hidden p-6 sm:flex-row sm:items-center sm:gap-8 sm:p-8">
+          <span className="text-6xl font-black leading-none tracking-tighter text-gray-900 sm:text-7xl" style={{ fontFamily: `'${t.name}', Roboto, sans-serif` }}>Aa</span>
+          <div className="min-w-0">
             <p className="text-xl font-bold text-gray-900">{t.name}</p>
             {t.usage && <p className="mt-1 text-sm text-gray-500">{t.usage}</p>}
-            <p className="mt-3 flex gap-3 text-xs text-gray-400"><span className="font-light">Light</span><span className="font-normal">Regular</span><span className="font-medium">Medium</span><span className="font-bold">Bold</span><span className="font-black">Black</span></p>
+            <p className="mt-3 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-400"><span className="font-light">Light</span><span className="font-normal">Regular</span><span className="font-medium">Medium</span><span className="font-bold">Bold</span><span className="font-black">Black</span></p>
           </div>
         </Reveal>
       ))}

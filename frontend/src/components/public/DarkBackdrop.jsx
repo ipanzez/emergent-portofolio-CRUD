@@ -14,6 +14,32 @@ export const Sparkle = ({ size = 16, className = "", style }) => (
   </svg>
 );
 
+export const GlowSparkle = ({ size = 32, color = "text-blue-500", className = "", style }) => (
+  <span className={`pointer-events-none absolute ${className}`} style={{ width: size, height: size, ...style }} aria-hidden>
+    <Sparkle size={size} className={`${color} absolute inset-0 opacity-70 blur-md`} />
+    <Sparkle size={size} className={`${color} relative animate-twinkle`} />
+  </span>
+);
+
+export const LightBackdrop = () => (
+  <div aria-hidden className="absolute inset-0 overflow-hidden bg-white">
+    <div
+      className="absolute inset-0"
+      style={{
+        backgroundImage: "linear-gradient(#E5E7EB 1px, transparent 1px), linear-gradient(90deg, #E5E7EB 1px, transparent 1px)",
+        backgroundSize: "64px 64px",
+        maskImage: "radial-gradient(ellipse at center, black 35%, transparent 80%)",
+        WebkitMaskImage: "radial-gradient(ellipse at center, black 35%, transparent 80%)",
+        opacity: 0.6,
+      }}
+    />
+    <div className="absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-gray-200/80" />
+    <div className="absolute left-1/2 top-1/2 h-[820px] w-[820px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-gray-200/50" />
+    <div className="absolute -left-24 top-1/3 h-80 w-80 rounded-full bg-blue-400/15 blur-[110px]" />
+    <div className="absolute -right-16 top-1/4 h-72 w-72 rounded-full bg-purple-400/15 blur-[110px]" />
+  </div>
+);
+
 export const DarkBackdrop = () => (
   <div aria-hidden className="absolute inset-0 overflow-hidden bg-ink">
     <div className="absolute -left-40 -top-40 h-[560px] w-[560px] animate-drift rounded-full bg-blue-600/30 blur-[150px]" />

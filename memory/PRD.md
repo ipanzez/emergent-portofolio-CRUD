@@ -27,6 +27,7 @@ Website portfolio pribadi bergaya Behance untuk UI/UX Designer: halaman publik e
 - [x] Redesign About photo card (overlay nama/role, badge lokasi, floating badge tahun pengalaman); QA mobile 390px tanpa overflow
 - [x] Tested iteration_2: 24/24 backend, semua alur drag/case-study lolos; fix loop update-depth di Reorder
 - [x] Revisi UI (iter 3): hero lebih ringkas di desktop, badge tahun di foto dihapus, ikon tools seragam 32px, related projects dihapus dari detail, tipografi mobile diperkecil + overflow-x hidden, galeri project jadi slider (embla) dengan prev/next/dots
+- [x] Redesign ala referensi Behance (iter 4): Hero & Get In Touch tema putih (PORTO/FOLIO. gradasi, sparkle, badge role, tag Selected Project, experience), About bento (bio + foto bulat → name card biru full-width → skills/tools), fix typography card terpotong di HP. hero_title dipisah baris via spasi ("PORTO FOLIO.")
 
 ## Backlog
 - P1: Server-side OG meta for social crawlers (currently client-side only)

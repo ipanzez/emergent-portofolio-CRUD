@@ -37,7 +37,7 @@ class Profile(BaseDocument):
     name: str = ""
     role: str = ""
     hero_greeting: str = "Hello And Welcome To My"
-    hero_title: str = "PORTOFOLIO."
+    hero_title: str = "PORTO FOLIO."
     hero_subtitle: str = ""
     experience_start: int = 2021
     experience_end: str = "Present"

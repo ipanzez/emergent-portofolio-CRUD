@@ -45,7 +45,7 @@ export const Navbar = ({ name = "Portfolio" }) => {
           <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-brand-blue to-brand-purple text-xs font-black text-white">
             {initials}
           </span>
-          <span className={`text-sm font-bold tracking-tight ${solid ? "text-gray-900" : "text-white"}`}>{name}</span>
+          <span className="text-sm font-bold tracking-tight text-gray-900">{name}</span>
         </Link>
         <ul className="hidden items-center gap-8 md:flex">
           {LINKS.map((l) => (
@@ -54,7 +54,7 @@ export const Navbar = ({ name = "Portfolio" }) => {
                 href={`/#${l.id}`}
                 onClick={go(l.id)}
                 data-testid={`nav-link-${l.id}`}
-                className={`text-sm font-medium transition-colors hover:text-brand-blue ${solid ? "text-gray-600" : "text-white/70"}`}
+                className="text-sm font-medium text-gray-600 transition-colors hover:text-brand-blue"
               >
                 {l.label}
               </a>
@@ -64,7 +64,7 @@ export const Navbar = ({ name = "Portfolio" }) => {
         <button
           data-testid="nav-menu-toggle"
           onClick={() => setOpen((o) => !o)}
-          className={`md:hidden ${solid ? "text-gray-900" : "text-white"}`}
+          className="text-gray-900 md:hidden"
           aria-label="Toggle menu"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
